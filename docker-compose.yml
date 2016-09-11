@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+
+  workspace:
+    build:
+      context: ./docker/workspace
+    volumes_from:
+      - workspace_volumes
+
+  workspace_volumes:
+    image: tianon/true
+    volumes:
+      - ./:/var/www/
+      - ./data/mysql:/var/lib/mysql
+
+  mysql:
+    build: ./docker/mysql
+    volumes_from:
+      - workspace_volumes
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: angular_demo
+      MYSQL_USER: wade
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      args:
+        - PHP_UPSTREAM=php-fpm
+    volumes_from:
+      - workspace_volumes
+    ports:
+      - "8080:80"
+    links:
+      - php-fpm
+
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+    volumes_from:
+      - workspace_volumes
+    links:
+      - mysql
+      - workspace
