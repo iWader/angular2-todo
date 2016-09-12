@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { TodoStore } from "./services/store";
+import { TodoStore, Todo } from "./services/store";
 
 @Component({
     selector: 'todo-app',
@@ -11,5 +11,9 @@ export class AppComponent {
 
     constructor(store: TodoStore) {
         this.store = store;
+    }
+
+    toggleComplete(todo: Todo) {
+        todo.completed_at = ! todo.completed_at;
     }
 }

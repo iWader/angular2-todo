@@ -1,6 +1,6 @@
 <div>
     <ul class="todos">
-        <li *ngFor="let todo of store.todos">
+        <li *ngFor="let todo of store.todos" (click)="toggleComplete(todo)" [class.completed]="todo.completed_at">
             {{ todo.title }}
         </li>
     </ul>
