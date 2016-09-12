@@ -1,6 +1,6 @@
 <?php
 
-namespace iWader\Angular2Demo\Transformers;
+namespace App\Transformers;
 
 use DateTime;
 use League\Fractal\TransformerAbstract;

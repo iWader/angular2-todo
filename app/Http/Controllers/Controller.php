@@ -30,7 +30,7 @@ class Controller extends BaseController
      *
      * @var int
      */
-    protected $statusCode;
+    protected $statusCode = 200;
 
     public function __construct(Manager $fractal, Request $request)
     {

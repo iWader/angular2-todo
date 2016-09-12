@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Repositories\Contracts\TodoRepositoryInterface;
-use iWader\Angular2Demo\Transformers\TodoTransformer;
+use App\Transformers\TodoTransformer;
 use League\Fractal\Manager;
 
 class TodoController extends Controller
@@ -26,7 +26,7 @@ class TodoController extends Controller
     {
         $todos = $this->repository->all();
 
-        return $this->respondWithArray($todos, new TodoTransformer());
+        return $this->respondWithCollection($todos, new TodoTransformer());
     }
 
     public function create()

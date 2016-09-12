@@ -1,8 +1,9 @@
 <?php
 
-namespace iWader\Angular2Demo\Transformers;
+namespace App\Transformers;
 
 use App\Models\Todo;
+use Carbon\Carbon;
 
 class TodoTransformer extends Transformer
 {
@@ -10,8 +11,8 @@ class TodoTransformer extends Transformer
     {
         return [
             'id'           => $todo->getKey(),
-            'task'         => $todo->task,
-            'completed_at' => ! is_null($todo->completed_at) ? $this->mutateDateTime($todo->completed_at) : null,
+            'title'        => $todo->title,
+            'completed_at' => $todo->completed_at instanceof Carbon,
         ];
     }
 }
