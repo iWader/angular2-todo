@@ -49,6 +49,11 @@ module.exports = {
                 loader: 'file?name=assets/[name].[hash].[ext]'
             },
             {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loaders: ['raw', 'sass']
+            },
+            {
                 test: /\.css$/,
                 exclude: root('angular'),
                 loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
