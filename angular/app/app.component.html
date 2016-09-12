@@ -5,6 +5,8 @@
     <ul class="todos">
         <li *ngFor="let todo of store.todos" (click)="toggleComplete(todo)" [class.completed]="todo.completed_at">
             {{ todo.title }}
+
+            <button type="button" (click)="deleteTodo(todo)">&times;</button>
         </li>
     </ul>
 </div>

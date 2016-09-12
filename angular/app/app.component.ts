@@ -24,4 +24,8 @@ export class AppComponent {
 
         this.newTodo = ''
     }
+
+    deleteTodo(todo: Todo) {
+        this.store.remove(todo);
+    }
 }
