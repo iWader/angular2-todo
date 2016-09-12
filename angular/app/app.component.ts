@@ -8,13 +8,20 @@ import { TodoStore, Todo } from "./services/store";
 })
 
 export class AppComponent {
-    store: TodoStore;
+    store: TodoStore
+    newTodo: ''
 
     constructor(store: TodoStore) {
-        this.store = store;
+        this.store = store
     }
 
     toggleComplete(todo: Todo) {
-        todo.completed_at = ! todo.completed_at;
+        todo.completed_at = ! todo.completed_at
+    }
+
+    createTodo() {
+        this.store.add(this.newTodo)
+
+        this.newTodo = ''
     }
 }

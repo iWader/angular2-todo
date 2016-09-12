@@ -1,4 +1,7 @@
 <div>
+    <input type="text" [(ngModel)]="newTodo" (keyup.enter)="createTodo()">
+    <button type="button" (click)="createTodo()">Add Todo</button>
+
     <ul class="todos">
         <li *ngFor="let todo of store.todos" (click)="toggleComplete(todo)" [class.completed]="todo.completed_at">
             {{ todo.title }}

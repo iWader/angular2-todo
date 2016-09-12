@@ -35,4 +35,10 @@ export class TodoStore {
 
     }
 
+    add(title: String) {
+
+        this.todos.push(new Todo(title));
+
+    }
+
 }
