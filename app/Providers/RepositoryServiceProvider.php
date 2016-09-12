@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use iWader\Angular2Demo\Repositories\Eloquent\EloquentTodoRepository;
-use iWader\Repositories\Contracts\TodoRepositoryInterface;
+use App\Repositories\Eloquent\EloquentTodoRepository;
+use App\Repositories\Contracts\TodoRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
