@@ -1,1 +1,7 @@
-<h1>Hello World!</h1>
+<div>
+    <ul class="todos">
+        <li *ngFor="let todo of store.todos">
+            {{ todo.title }}
+        </li>
+    </ul>
+</div>
