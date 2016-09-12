@@ -1,5 +1,5 @@
-import { Component } from '@angular/core'
-import { TodoStore, Todo } from "./services/store";
+import { Component, OnInit } from '@angular/core'
+import { TodoStore, Todo } from './services/store'
 
 @Component({
     selector: 'todo-app',
@@ -7,12 +7,16 @@ import { TodoStore, Todo } from "./services/store";
     styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
     store: TodoStore
     newTodo: ''
 
     constructor(store: TodoStore) {
         this.store = store
+    }
+
+    ngOnInit() {
+        this.store.load()
     }
 
     toggleComplete(todo: Todo) {
@@ -26,6 +30,6 @@ export class AppComponent {
     }
 
     deleteTodo(todo: Todo) {
-        this.store.remove(todo);
+        this.store.remove(todo)
     }
 }

@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
+import { HttpModule } from '@angular/http'
 
 import { AppComponent } from './app.component'
-import { TodoStore } from "./services/store";
+import { TodoStore, TodoRestService } from './services/store';
+import {Config} from "./app.constants";
 
 @NgModule({
     imports: [
         BrowserModule,
-        FormsModule
+        FormsModule,
+        HttpModule
     ],
     declarations: [
         AppComponent
@@ -17,7 +20,9 @@ import { TodoStore } from "./services/store";
         AppComponent
     ],
     providers: [
-        TodoStore
+        TodoStore,
+        TodoRestService,
+        Config
     ]
 })
 
