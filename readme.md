@@ -6,6 +6,7 @@ Todo app built with
  - Laravel
  - TypeScript
  - Webpack
+ - Gulp
  - Docker
 
 ## Installation
@@ -16,7 +17,7 @@ Todo app built with
  - `composer install && npm install`
  - `cp .env.example .env` and set `DB_HOST` to the ID of the mysql container
  - `php artisan key:generate && php artisan migrate`
- - `webpack`
+ - `gulp`
  - Navigate to `http://127.0.0.1:8080/angular/`
 
 ## License
