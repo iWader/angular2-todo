@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http'
 
 import { AppComponent } from './app.component'
 import { TodoStore, TodoRestService } from './services/store';
-import {Config} from "./app.constants";
+import { Config } from './app.constants';
 
 @NgModule({
     imports: [

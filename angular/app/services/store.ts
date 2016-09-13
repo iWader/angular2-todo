@@ -23,25 +23,66 @@ export class TodoRestService {
             .map((response: Response) => <Todo[]>response.json().data)
     }
 
+    add(todo: Todo): Observable<Todo> {
+        todo.saving = true
+
+        return this._http.post(this.endpoint, JSON.stringify(todo), { headers: this.headers })
+            .map((response: Response) => {
+                todo.hydrate(response.json().data)
+
+                todo.saving = false
+
+                return todo
+            })
+    }
 }
 
 export class Todo {
 
-    completed_at: Boolean;
-
-    protected _title: string;
+    protected _id: number
+    protected _saving: boolean = false
+    protected _title: string
+    public completed_at: Date
 
     constructor(title: string) {
-        this.completed_at = false;
-        this.title = title;
+        this.title = title
     }
 
-    get title() {
-        return this._title;
+    get id(): number {
+        return this._id
+    }
+
+    set id(value:number) {
+        this._id = value
+    }
+
+    get title(): string {
+        return this._title
     }
 
     set title(value: string) {
-        this._title = value;
+        this._title = value
+    }
+
+    get saving(): boolean {
+        return this._saving
+    }
+
+    set saving(value: boolean) {
+        this._saving = value
+    }
+
+    hydrate(data: any) {
+        this.id = data.id
+        this.title = data.title
+        this.completed_at = data.completed_at
+    }
+
+    toJSON(): Object {
+        return {
+            title: this._title,
+            completed_at: this.completed_at instanceof Date ? this.completed_at.toISOString() : null,
+        }
     }
 }
 
@@ -51,7 +92,7 @@ export class TodoStore {
     todos: Todo[];
 
     constructor(private _api: TodoRestService) {
-        this.todos = [];
+        this.todos = []
     }
 
     load() {
@@ -60,7 +101,12 @@ export class TodoStore {
     }
 
     add(title: string) {
-        this.todos.push(new Todo(title));
+        let todo = new Todo(title);
+
+        this.todos.push(todo)
+
+        this._api.add(todo)
+            .subscribe()
     }
 
     remove(todo: Todo) {
