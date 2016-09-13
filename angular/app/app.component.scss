@@ -1,7 +1,62 @@
-.completed {
-  background: green;
+section {
+  max-width: 600px;
+  margin: 30px auto;
 }
 
-.saving {
-  color: red;
+.todo-list {
+  list-style: none;
+
+  .todo-item {
+    margin-top: 15px;
+
+    &:first-of-type {
+      margin-top: 30px;
+    }
+
+    &.saving {
+      .saving-icon {
+        visibility: visible;
+        animation: spin 2s linear infinite;
+      }
+
+      .todo-title {
+        opacity: 0.5;
+      }
+    }
+    
+    &.completed {
+      .todo-title {
+        text-decoration: line-through;
+      }
+    }
+
+    .saving-icon {
+      visibility: hidden;
+    }
+
+    .todo-status, .todo-title {
+      float: left;
+    }
+
+    .todo-status, .todo-actions {
+      font-size: 2em;
+    }
+
+    .todo-title {
+      line-height: 1.86em;
+      margin-left: 15px;
+      font-size: 1.3em;
+    }
+
+    .todo-actions {
+      float: right;
+    }
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

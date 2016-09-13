@@ -1,14 +1,27 @@
-<div>
-    <input type="text" [(ngModel)]="newTodo" (keyup.enter)="createTodo()">
-    <button type="button" (click)="createTodo()">Add Todo</button>
+<section>
+    <div class="row">
+        <div class="col-xs-12 col-sm-10">
+            <input type="text" [(ngModel)]="newTodo" (keyup.enter)="createTodo()" class="form-control" placeholder="Groceries">
+        </div>
 
-    <ul class="todos">
-        <li *ngFor="let todo of store.todos" [class.completed]="todo.completed" [class.saving]="todo.saving">
-            <input type="checkbox" (change)="toggleComplete(todo)" [(ngModel)]="todo.completed">
+        <div class="col-xs-12 col-sm-2">
+            <button type="button" (click)="createTodo()" class="btn btn-success">Add Todo</button>
+        </div>
+    </div>
 
-            {{ todo.title }}
+    <ul class="todo-list">
+        <li *ngFor="let todo of store.todos" [class.completed]="todo.completed" [class.saving]="todo.saving" class="todo-item clearfix">
+            <div (click)="toggleComplete(todo)" class="todo-status">
+                <span *ngIf="todo.completed" class="glyphicon glyphicon-ok-circle text-success"></span>
+                <span *ngIf=" ! todo.completed" class="glyphicon glyphicon-remove-circle text-danger"></span>
+            </div>
 
-            <button type="button" (click)="deleteTodo(todo)">&times;</button>
+            <p class="todo-title">{{ todo.title }}</p>
+
+            <div class="todo-actions">
+                <span (click)="deleteTodo(todo)" class="glyphicon glyphicon-trash"></span>
+                <span class="glyphicon glyphicon-refresh saving-icon"></span>
+            </div>
         </li>
     </ul>
-</div>
+</section>

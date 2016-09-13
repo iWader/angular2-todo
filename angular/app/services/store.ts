@@ -131,6 +131,8 @@ export class TodoStore {
     remove(todo: Todo) {
         var _self = this
 
+        todo.saving = true
+
         this._api.destroy(todo)
             .subscribe(() => {
                 _self.todos.splice(this.todos.indexOf(todo), 1)
