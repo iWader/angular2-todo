@@ -10,8 +10,7 @@ Todo app built with
 
 ## Installation
 
- - `git clone git@github.com:iWader/angular2-todo.git`
- - `cd angular2-todo`
+ - `git clone git@github.com:iWader/angular2-todo.git && cd angular2-todo`
  - `docker-compose up -d`
  - `docker-compose exec --user wade workspace bash`
  - `composer install && npm install`
