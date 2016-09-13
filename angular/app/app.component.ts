@@ -20,7 +20,9 @@ export class AppComponent implements OnInit {
     }
 
     toggleComplete(todo: Todo) {
-        todo.completed_at = todo.completed_at instanceof Date ? undefined : new Date()
+        todo.completed = ! todo.completed
+
+        this.store.update(todo)
     }
 
     createTodo() {

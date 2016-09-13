@@ -3,7 +3,7 @@
     <button type="button" (click)="createTodo()">Add Todo</button>
 
     <ul class="todos">
-        <li *ngFor="let todo of store.todos" (click)="toggleComplete(todo)" [class.completed]="todo.completed_at" [class.saving]="todo.saving">
+        <li *ngFor="let todo of store.todos" (click)="toggleComplete(todo)" [class.completed]="todo.completed" [class.saving]="todo.saving">
             {{ todo.title }}
 
             <button type="button" (click)="deleteTodo(todo)">&times;</button>

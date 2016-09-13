@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import {Http, Headers, Response} from '@angular/http'
 import { Config } from '../app.constants'
-import {Observable} from "rxjs/Rx";
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class TodoRestService {
@@ -24,16 +24,19 @@ export class TodoRestService {
     }
 
     add(todo: Todo): Observable<Todo> {
-        todo.saving = true
-
         return this._http.post(this.endpoint, JSON.stringify(todo), { headers: this.headers })
-            .map((response: Response) => {
-                todo.hydrate(response.json().data)
+            .map((response: Response) => <Todo>response.json().data)
+    }
 
-                todo.saving = false
+    update(todo: Todo): Observable<Todo> {
+        let json = JSON.stringify({title: todo.title, completed: todo.completed })
 
-                return todo
-            })
+        return this._http.put(this.endpoint + '/' + todo.id, json, { headers: this.headers })
+            .map((response: Response) => <Todo>response.json().data)
+    }
+
+    destroy(todo: Todo): Observable<Response> {
+        return this._http.delete(this.endpoint + '/' + todo.id)
     }
 }
 
@@ -42,7 +45,7 @@ export class Todo {
     protected _id: number
     protected _saving: boolean = false
     protected _title: string
-    public completed_at: Date
+    public completed: boolean = false
 
     constructor(title: string) {
         this.title = title
@@ -72,16 +75,11 @@ export class Todo {
         this._saving = value
     }
 
-    hydrate(data: any) {
-        this.id = data.id
-        this.title = data.title
-        this.completed_at = data.completed_at
-    }
-
-    toJSON(): Object {
+    toJSON() {
         return {
+            id: this._id,
             title: this._title,
-            completed_at: this.completed_at instanceof Date ? this.completed_at.toISOString() : null,
+            completed: this.completed
         }
     }
 }
@@ -101,16 +99,42 @@ export class TodoStore {
     }
 
     add(title: string) {
-        let todo = new Todo(title);
+        let todo = new Todo(title)
+
+        todo.saving = true
 
         this.todos.push(todo)
 
         this._api.add(todo)
-            .subscribe()
+            .subscribe((data: Todo) => {
+                todo.id = data.id
+                todo.title = data.title
+                todo.completed = data.completed
+
+                todo.saving = false
+            })
+    }
+
+    update(todo: Todo) {
+        todo.saving = true
+
+        this._api.update(todo)
+            .subscribe((data: Todo) => {
+                todo.id = data.id
+                todo.title = data.title
+                todo.completed = data.completed
+
+                todo.saving = false
+            })
     }
 
     remove(todo: Todo) {
-        this.todos.splice(this.todos.indexOf(todo), 1)
+        var _self = this
+
+        this._api.destroy(todo)
+            .subscribe(() => {
+                _self.todos.splice(this.todos.indexOf(todo), 1)
+            })
     }
 
 }

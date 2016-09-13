@@ -12,7 +12,7 @@ class TodoTransformer extends Transformer
         return [
             'id'           => $todo->getKey(),
             'title'        => $todo->title,
-            'completed_at' => $todo->completed_at instanceof Carbon,
+            'completed'    => (bool) $todo->completed,
         ];
     }
 }
