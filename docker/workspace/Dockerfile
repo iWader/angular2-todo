@@ -34,7 +34,8 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.7/install.sh
     echo "" >> ~/.bashrc && \
     echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> ~/.bashrc && \
-    echo 'alias webpack="./node_modules/webpack/bin/webpack.js"' >> ~/.bash_aliases
+    echo 'alias webpack="./node_modules/webpack/bin/webpack.js"' >> ~/.bash_aliases && \
+    echo 'alias gulp="./node_modules/gulp/bin/gulp.js"' >> ~/.bash_aliases
 
 USER root
 
